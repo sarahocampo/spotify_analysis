@@ -30,14 +30,16 @@ for depth in depthlist:
     print("Train Score: ", train_score)
     print("Test Score: ", test_score)
     
-    
-from sklearn import svm
+
 from sklearn.model_selection import GridSearchCV
 
-parameters = {'kernel':('linear', 'rbf'), 'C':[1, 10]}
-svc = svm.SVC()
-clf = GridSearchCV(svc, parameters)
+parameters = {'max_depth':[3, 4, 5, 6, 7, 8, 9],
+              'criterion' : ('gini', 'entropy'),
+              'splitter' : ('best', 'random'),
+              'max_features': ('auto', 'sqrt', 'log2')}
+model = DecisionTreeClassifier()
+clf = GridSearchCV(model, parameters)
 clf.fit(x_train, y_train)
-GridSearchCV(estimator=SVC(),
+GridSearchCV(estimator=DecisionTreeClassifier(),
              param_grid={'C': [1, 10], 'kernel': ('linear', 'rbf')})
 sorted(clf.cv_results_.keys())
